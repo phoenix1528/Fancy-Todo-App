@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -17,16 +19,19 @@ namespace API.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly DataContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, DataContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        [HttpGet("{id}")]
-        public int GetValue(int id)
+        [HttpGet]
+        [Route("values")]
+        public IEnumerable<Value> GetValues()
         {
-            return id;
+            return _context.Values.ToList();
         }
 
         [HttpGet]
