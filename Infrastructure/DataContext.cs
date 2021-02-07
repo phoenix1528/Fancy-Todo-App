@@ -7,7 +7,7 @@ namespace Infrastructure
     public class DataContext : DbContext
     {
 
-        public DbSet<Value> Values { get; set; } = null!;
+        public DbSet<Todo> Todos { get; set; } = null!;
 
         public DataContext(DbContextOptions options) : base(options)
         {
@@ -16,24 +16,26 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Value>()
-                .HasData(
-                    new Value
-                    {
-                        Id = 1,
-                        Name = "value 101"
-                    },
-                    new Value
-                    {
-                        Id = 2,
-                        Name = "value 102"
-                    },
-                    new Value
-                    {
-                        Id = 3,
-                        Name = "value 103"
-                    }
-                );
+            //TODO: add seeding for todo entity
+            //builder.Entity<Todo>()
+            //    .HasData(
+            //        new Todo
+            //        {
+            //            Id = Guid.NewGuid(),
+                        
+            //            Name = "value 101"
+            //        },
+            //        new Todo
+            //        {
+            //            Id = Guid.NewGuid(),
+            //            Name = "value 102"
+            //        },
+            //        new Todo
+            //        {
+            //            Id = Guid.NewGuid(),
+            //            Name = "value 103"
+            //        }
+            //    );
         }
     }
 }
