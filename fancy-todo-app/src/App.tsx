@@ -15,7 +15,7 @@ export default class App extends Component {
 
   componentDidMount() {
     axios
-      .get('https://localhost:44326/api/WeatherForecast/values')
+      .get('https://localhost:44326/api/todo')
       .then((response) => {
         console.log(response);
         this.setState({

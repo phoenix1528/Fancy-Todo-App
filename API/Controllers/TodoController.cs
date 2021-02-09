@@ -21,8 +21,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("values")]
-        public IEnumerable<Todo> GetValues()
+        public IEnumerable<Todo> GetTodos()
         {
             throw new NotImplementedException();
         }
