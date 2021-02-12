@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Commands;
 using API.Queries;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shared;
@@ -30,7 +32,7 @@ namespace API.Controllers
         {
             var query = new GetTodoByIdQuery(id);
 
-            var todoDto = await _mediator.Send(query).ConfigureAwait(false);
+            var todoDto = await _mediator.Send(query);
 
             if(todoDto == null)
             {
@@ -43,7 +45,7 @@ namespace API.Controllers
         [HttpGet("list")]
         public async Task<ActionResult<IEnumerable<TodoDto>>> GetTodoListAsync()
         {
-            var todoList = await _mediator.Send(new GetTodoListQuery()).ConfigureAwait(false);
+            var todoList = await _mediator.Send(new GetTodoListQuery());
 
             if (!todoList.Any())
             {
@@ -51,6 +53,19 @@ namespace API.Controllers
             }
 
             return Ok(todoList);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateTodoAsync(CreateTodoDto createTodoDto)
+        {
+            var response = await _mediator.Send(new CreateTodoCommand(createTodoDto));
+
+            if (!response.Success)
+            {
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, response);
+            }
+
+            return Ok(response);
         }
     }
 }

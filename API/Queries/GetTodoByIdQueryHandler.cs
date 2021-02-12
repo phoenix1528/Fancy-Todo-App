@@ -32,7 +32,7 @@ namespace API.Queries
 
             _logger.LogDebug($"Handle {nameof(GetTodoByIdQuery)}");
 
-            var todo = await _repository.GetTodoByIdAsync(request.Id).ConfigureAwait(false);
+            var todo = await _repository.GetTodoByIdAsync(request.Id);
             if (todo == null)
             {
                 _logger.LogError("No todo with id [{TodoId}] could be found.", request.Id);

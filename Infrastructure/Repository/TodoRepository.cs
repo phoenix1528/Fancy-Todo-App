@@ -1,5 +1,6 @@
 ﻿using Domain.Model;
 using Domain.Repository;
+using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,14 +20,29 @@ namespace Infrastructure.Repository
             _context = context;
         }
 
+        public async Task CreateTodoAsync(Todo todo)
+        {
+            try
+            {
+                _context.Todos.Add(todo);
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An Unexpected Error occured");
+                throw;
+            }
+        }
+
         public async Task<Todo> GetTodoByIdAsync(Guid id)
         {
-            return await _context.Todos.FindAsync(id).ConfigureAwait(false);
+            return await _context.Todos.FindAsync(id);
         }
 
         public async Task<IEnumerable<Todo>> GetTodoListAsync()
         {
-            return await _context.Todos.ToListAsync().ConfigureAwait(false);
+            return await _context.Todos.ToListAsync();
         }
     }
 }

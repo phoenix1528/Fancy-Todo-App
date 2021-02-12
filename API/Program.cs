@@ -1,9 +1,8 @@
 using System;
-using Infrastructure;
+using Infrastructure.DB;
 using Infrastructure.Seeding;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

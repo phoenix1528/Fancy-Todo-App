@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Infrastructure.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,56 +14,55 @@ namespace Infrastructure.Seeding
             {
                 var todos = new List<Todo>
                 {
+                    new Todo(
+                        "Sport",
+                        "Klosterneuburg",
+                        "Laufen 2km",
+                        new DateTime(2021, 2, 7, 20, 30, 00),
+                        new DateTime(2021, 2, 7, 20, 52, 00),
+                        "Beginnertraining",
+                        "Auwald"
+                    ),
                     new Todo
-                    {
-                        Id = Guid.NewGuid(),
-                        Category = "Sports Activity",
-                        City = "Klosterneuburg",
-                        Venue = "Laufen 2km",
-                        Description = "Laufen 2km",
-                        StartDate = new DateTime(2021, 2, 7, 20, 30, 00),
-                        EndDate = new DateTime(2021, 2, 7, 20, 52, 00),
-                    },
+                    (
+                        "Work",
+                        "Wien",
+                        "Arbeiten im Büro",
+                        new DateTime(2021, 2, 1, 9, 30, 00),
+                        new DateTime(2021, 2, 1, 17, 00, 00),
+                        "Arbeiten bei der Post",
+                        "Office"
+                    ),
                     new Todo
-                    {
-                        Id = Guid.NewGuid(),
-                        Category = "Work",
-                        City = "Wien",
-                        Venue = "Working at the office",
-                        Description = "Arbeiten im Büro",
-                        StartDate = new DateTime(2021, 2, 1, 9, 30, 00),
-                        EndDate = new DateTime(2021, 2, 1, 17, 00, 00),
-                    },
+                    (
+                       "Sport",
+                        "Klosterneuburg",
+                        "Training mit Klimmzugstange",
+                        new DateTime(2021, 2, 7, 20, 00, 00),
+                        new DateTime(2021, 2, 7, 20, 15, 00),
+                        "Einsteigertraining",
+                        "Auwald"
+                    ),
                     new Todo
-                    {
-                        Id = Guid.NewGuid(),
-                        Category = "Sports Activity",
-                        City = "Klosterneuburg",
-                        Venue = "Training mit Klimmzugstange",
-                        Description = "Training mit Klimmzugstange",
-                        StartDate = new DateTime(2021, 2, 7, 20, 00, 00),
-                        EndDate = new DateTime(2021, 2, 7, 20, 15, 00),
-                    },
+                    (
+                        "Sport",
+                        "Klosterneuburg",
+                        "Training mit Klimmzugstange",
+                        new DateTime(2021, 2, 9, 15, 00, 00),
+                        new DateTime(2021, 2, 9, 15, 15, 00),
+                        "Einsteigertraining",
+                        "Office"
+                    ),
                     new Todo
-                    {
-                        Id = Guid.NewGuid(),
-                        Category = "Sports Activity",
-                        City = "Klosterneuburg",
-                        Venue = "Training mit Klimmzugstange",
-                        Description = "Training mit Klimmzugstange",
-                        StartDate = new DateTime(2021, 2, 9, 15, 00, 00),
-                        EndDate = new DateTime(2021, 2, 9, 15, 15, 00),
-                    },
-                    new Todo
-                    {
-                        Id = Guid.NewGuid(),
-                        Category = "Sports Activity",
-                        City = "Klosterneuburg",
-                        Venue = "Training mit Klimmzugstange",
-                        Description = "Kurzes Aufwärmen mit Fahrrad und danach Laufen 2km",
-                        StartDate = new DateTime(2021, 2, 7, 20, 20, 00),
-                        EndDate = new DateTime(2021, 2, 7, 20, 55, 00),
-                    }
+                    (
+                        "Sport",
+                        "Klosterneuburg",
+                        "Kurzes Aufwärmen mit Fahrrad und danach Laufen 2km",
+                        new DateTime(2021, 2, 7, 20, 20, 00),
+                        new DateTime(2021, 2, 7, 20, 55, 00),
+                        "Einsteigertraining",
+                        "Auwald"
+                    )
                 };
 
                 context.Todos.AddRange(todos);

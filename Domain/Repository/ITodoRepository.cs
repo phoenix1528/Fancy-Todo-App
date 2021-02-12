@@ -11,5 +11,6 @@ namespace Domain.Repository
     {
         Task<Todo> GetTodoByIdAsync(Guid id);
         Task<IEnumerable<Todo>> GetTodoListAsync();
+        Task CreateTodoAsync(Todo todo);
     }
 }

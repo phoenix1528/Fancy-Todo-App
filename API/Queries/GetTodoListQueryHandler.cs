@@ -34,7 +34,7 @@ namespace API.Queries
 
             _logger.LogDebug($"Handle {nameof(GetTodoByIdQuery)}");
 
-            var todoList = await _repository.GetTodoListAsync().ConfigureAwait(false);
+            var todoList = await _repository.GetTodoListAsync();
             if (!todoList.Any())
             {
                 _logger.LogError("No todos could be found.");
