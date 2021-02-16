@@ -40,13 +40,13 @@ namespace API.Commands
             }
             catch (TodoValidationException ex)
             {
-                _logger.LogError(ex, "Todo could not be created because the validation failed");
-                return new CommandResponse("ERROR: Todo could not be created because the validation failed.", false);            
+                _logger.LogError(ex, "Input validation failed, todo could not be created.");
+                return new CommandResponse("Input validation failed, todo could not be created.", false);            
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Could not create todo.");
-                return new CommandResponse("ERROR: Could not create todo.", false);
+                _logger.LogError(ex, "Unexpected Error occured. Todo could not be created.");
+                return new CommandResponse("Unexpected Error occured. Todo could not be created.", false);
             }
 
             return new CommandResponse("Todo was created", true);
