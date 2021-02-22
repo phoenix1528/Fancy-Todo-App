@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
-using Domain.Model;
 using Domain.Repository;
+using MediatR;
 using Microsoft.Extensions.Logging;
+using Shared.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace API.Commands
 {
-    public class EditTodoCommandHandler
+    public class EditTodoCommandHandler : IRequestHandler<EditTodoCommand, CommandResponse>
     {
         public readonly ILogger<EditTodoCommandHandler> _logger;
         public readonly IMapper _mapper;
         public readonly ITodoRepository _repository;
 
-        public CreateTodoCommandHandler(ILogger<EditTodoCommandHandler> logger, IMapper mapper, ITodoRepository repository)
+        public EditTodoCommandHandler(ILogger<EditTodoCommandHandler> logger, IMapper mapper, ITodoRepository repository)
         {
             _logger = logger;
             _mapper = mapper;
@@ -34,14 +33,18 @@ namespace API.Commands
 
             try
             {
-                var todo = _mapper.Map<Todo>(request);
+                await _repository.StartTransactionAsync();
 
-                await _repository.UpdateTodoAsync(todo);
+                var todoToUpdate = await _repository.GetTodoByIdAsync(request.Id);
+
+                _mapper.Map(request, todoToUpdate);
+
+                await _repository.EndTransactionAsync();
             }
-            catch (SqlException ex)
+            catch (TodoValidationException ex)
             {
-                _logger.LogError(ex, "Database operation failed");
-                return new CommandResponse("ERROR: Database operation failed", false);
+                _logger.LogError(ex, "Input validation failed, todo could not be created.");
+                return new CommandResponse("Input validation failed, todo could not be created.", false);
             }
             catch (Exception ex)
             {
@@ -49,7 +52,7 @@ namespace API.Commands
                 return new CommandResponse("An unexpected Error occured.", false);
             }
 
-            return new CommandResponse("Todo was created", true);
+            return new CommandResponse("Todo was edited", true);
         }
     }
 }

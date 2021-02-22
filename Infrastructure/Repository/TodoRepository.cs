@@ -2,9 +2,11 @@
 using Domain.Repository;
 using Infrastructure.DB;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
@@ -13,6 +15,7 @@ namespace Infrastructure.Repository
     {
         private readonly ILogger<TodoRepository> _logger;
         private readonly DataContext _context;
+        private IDbContextTransaction? _transaction;
 
         public TodoRepository(ILogger<TodoRepository> logger, DataContext context)
         {
@@ -43,6 +46,35 @@ namespace Infrastructure.Repository
         public async Task<IEnumerable<Todo>> GetTodoListAsync()
         {
             return await _context.Todos.ToListAsync();
+        }
+
+        public async Task StartTransactionAsync()
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task EndTransactionAsync()
+        {
+            await _context.SaveChangesAsync();
+
+            if (_transaction != null)
+            {
+                await _transaction.CommitAsync();
+            }
+        }
+
+        public async Task DeleteTodoAsync(Guid id)
+        {
+            var todoToDelete = await _context.Todos.FindAsync(id);
+
+            if(todoToDelete == null)
+            {
+                throw new Exception($"Todo with Id [{id}] was not found");
+            }
+
+            _context.Remove(todoToDelete);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

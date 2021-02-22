@@ -4,13 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Commands;
 using API.Queries;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shared;
-using static API.Queries.GetTodoListQueryHandler;
 
 namespace API.Controllers
 {
@@ -59,6 +57,32 @@ namespace API.Controllers
         public async Task<ActionResult> CreateTodoAsync(CreateTodoDto createTodoDto)
         {
             var response = await _mediator.Send(new CreateTodoCommand(createTodoDto));
+
+            if (!response.Success)
+            {
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> EditTodoAsync(EditTodoDto editTodoDto)
+        {
+            var response = await _mediator.Send(new EditTodoCommand(editTodoDto));
+
+            if (!response.Success)
+            {
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteTodoAsync(Guid id)
+        {
+            var response = await _mediator.Send(new DeleteTodoCommand(id));
 
             if (!response.Success)
             {

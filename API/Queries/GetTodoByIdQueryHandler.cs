@@ -35,7 +35,7 @@ namespace API.Queries
             var todo = await _repository.GetTodoByIdAsync(request.Id);
             if (todo == null)
             {
-                _logger.LogError("No todo with id [{TodoId}] could be found.", request.Id);
+                _logger.LogWarning("No todo with id [{TodoId}] could be found.", request.Id);
                 return null;
             }
 

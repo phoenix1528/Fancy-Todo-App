@@ -15,6 +15,7 @@ namespace API.Mappings
             CreateMap<CreateTodoCommand, Todo>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
+            CreateMap<EditTodoCommand, Todo>();
         }
     }
 }

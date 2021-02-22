@@ -10,6 +10,9 @@ namespace Domain.Repository
     public interface ITodoRepository
     {
         Task<Todo> GetTodoByIdAsync(Guid id);
+        Task DeleteTodoAsync(Guid id);
+        Task StartTransactionAsync();
+        Task EndTransactionAsync();
         Task<IEnumerable<Todo>> GetTodoListAsync();
         Task CreateTodoAsync(Todo todo);
     }
