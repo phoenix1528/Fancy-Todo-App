@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import toDoList from "../../to-do-list.svg";
 import axios from "axios";
 import NavBar from "./Navbar";
-import TodoDashboard from "../../features/todos/TodoDashboard";
-import { ITodo } from '../../app/models/ITodo';
+import TodoDashboard from "../../features/todos/Dashboard/TodoDashboard";
+import { ITodo } from "../../app/models/ITodo";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -23,7 +22,7 @@ function App() {
   return (
     <div>
       <NavBar />
-      <div className="row">
+      <div className="container">
         <TodoDashboard todos={todos} />
       </div>
     </div>
