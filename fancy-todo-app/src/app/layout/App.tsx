@@ -7,6 +7,9 @@ import { ITodo } from "../../app/models/ITodo";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
+  const [selectedTodo, setSelectedTodo] = useState<ITodo | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     axios
@@ -19,11 +22,24 @@ function App() {
       });
   }, []);
 
+  function handleSelectedTodo(id: string) {
+    setSelectedTodo(todos.find((t) => t.id === id));
+  }
+
+  function handleCancelSelectedTodo() {
+    setSelectedTodo(undefined);
+  }
+
   return (
     <div>
       <NavBar />
       <div className="container">
-        <TodoDashboard todos={todos} />
+        <TodoDashboard
+          todos={todos}
+          selectedTodo={selectedTodo}
+          selectTodo={handleSelectedTodo}
+          cancelSelectTodo={handleCancelSelectedTodo}
+        />
       </div>
     </div>
   );

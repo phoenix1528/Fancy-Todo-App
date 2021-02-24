@@ -5,9 +5,15 @@ import { format } from "date-fns";
 
 interface Props {
   todos: ITodo[];
+  selectTodo: (id: string) => void;
+  cancelSelectTodo: () => void;
 }
 
-export default function TodoList({ todos }: Props) {
+export default function TodoList({
+  todos,
+  selectTodo,
+  cancelSelectTodo,
+}: Props) {
   return (
     <section>
       {todos.map((todo) => (
@@ -21,8 +27,19 @@ export default function TodoList({ todos }: Props) {
                 {format(new Date(todo.endDate), "dd MMM yyyy HH:mm")}
               </small>
             </p>
-            <div className="d-flex justify-content-end">
-              <button className="btn btn-primary">Details</button>
+            <div className="d-flex justify-content-between">
+              <button
+                className="btn btn-danger"
+                onClick={() => cancelSelectTodo()}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-primary"
+                onClick={() => selectTodo(todo.id)}
+              >
+                Details
+              </button>
             </div>
           </div>
           <img
