@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import NavBar from "./Navbar";
-import TodoDashboard from "../../features/todos/Dashboard/TodoDashboard";
+import TodoDashboard from "../../features/todos/dashboard/TodoDashboard";
 import { ITodo } from "../../app/models/ITodo";
 
 function App() {
