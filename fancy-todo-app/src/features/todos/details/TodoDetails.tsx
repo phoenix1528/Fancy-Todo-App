@@ -5,12 +5,18 @@ import { format } from "date-fns";
 
 interface Props {
   todo: ITodo;
+  openForm: (id: string) => void;
+  cancelSelectTodo: () => void;
 }
 
-export default function TodoDetails({ todo }: Props) {
+export default function TodoDetails({
+  todo,
+  cancelSelectTodo,
+  openForm,
+}: Props) {
   return (
     <section className="card mt-3" style={{ width: "18rem" }}>
-      <img className="card-img-top" src={sports} alt="Card image cap" />
+      <img className="card-img-top" src={sports} alt="todo" />
       <div className="card-body">
         <h5 className="card-title">{todo.title}</h5>
         <p className="card-text">{todo.description}</p>
@@ -27,8 +33,12 @@ export default function TodoDetails({ todo }: Props) {
         </li>
       </ul>
       <div className="card-body d-flex justify-content-between">
-        <button className="btn btn-success">Edit Todo</button>
-        <button className="btn btn-danger">Delete Todo</button>
+        <button onClick={cancelSelectTodo} className="btn btn-danger">
+          Cancel
+        </button>
+        <button onClick={() => openForm(todo.id)} className="btn btn-success">
+          Edit Todo
+        </button>
       </div>
     </section>
   );

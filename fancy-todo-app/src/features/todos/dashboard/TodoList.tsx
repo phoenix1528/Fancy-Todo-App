@@ -6,14 +6,10 @@ import { format } from "date-fns";
 interface Props {
   todos: ITodo[];
   selectTodo: (id: string) => void;
-  cancelSelectTodo: () => void;
+  deleteTodo: (id: string) => void;
 }
 
-export default function TodoList({
-  todos,
-  selectTodo,
-  cancelSelectTodo,
-}: Props) {
+export default function TodoList({ todos, selectTodo, deleteTodo }: Props) {
   return (
     <section>
       {todos.map((todo) => (
@@ -27,12 +23,12 @@ export default function TodoList({
                 {format(new Date(todo.endDate), "dd MMM yyyy HH:mm")}
               </small>
             </p>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-end">
               <button
                 className="btn btn-danger"
-                onClick={() => cancelSelectTodo()}
+                onClick={() => deleteTodo(todo.id)}
               >
-                Cancel
+                Delete
               </button>
               <button
                 className="btn btn-primary"
@@ -46,7 +42,7 @@ export default function TodoList({
             className="card-img-bottom"
             src={sports}
             style={{ color: "blue", height: "200px", width: "auto" }}
-            alt="Card image cap"
+            alt="sports category"
           />
         </div>
       ))}
