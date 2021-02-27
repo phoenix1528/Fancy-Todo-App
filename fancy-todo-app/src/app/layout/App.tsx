@@ -5,6 +5,7 @@ import NavBar from "./Navbar";
 import TodoDashboard from "../../features/todos/dashboard/TodoDashboard";
 import { ITodo } from "../../app/models/ITodo";
 import { v4 as uuid } from "uuid";
+import agent from "../api/agent";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -14,14 +15,9 @@ function App() {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios
-      .get<ITodo[]>("https://localhost:44326/api/todo/list")
-      .then((response) => {
-        console.log(response);
-
-        setTodos(response.data);
-        console.log("todos were set");
-      });
+    agent.Todos.list().then((response) => {
+      setTodos(response);
+    });
   }, []);
 
   function handleSelectedTodo(id: string) {

@@ -83,7 +83,7 @@ function TodoForm({ todo: selectedTodo, closeForm, createTodo }: IProps) {
         <div className="form-group">
           <label htmlFor="startDate">Start Date</label>
           <input
-            type="string"
+            type="date"
             className="form-control"
             id="startDate"
             value={todo.startDate}
@@ -94,7 +94,7 @@ function TodoForm({ todo: selectedTodo, closeForm, createTodo }: IProps) {
         <div className="form-group">
           <label htmlFor="endDate">End Date</label>
           <input
-            type="string"
+            type="date"
             className="form-control"
             id="endDate"
             value={todo.endDate}
