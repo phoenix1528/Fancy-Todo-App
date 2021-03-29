@@ -1,7 +1,7 @@
-import React from "react";
-import { ITodo } from "../../../app/models/ITodo";
-import sports from "../../../../src/sports.jpg";
-import { format } from "date-fns";
+import React from 'react';
+import { ITodo } from '../../../app/models/ITodo';
+import sports from '../../../../src/sports.jpg';
+import { format } from 'date-fns';
 
 interface Props {
   todos: ITodo[];
@@ -13,24 +13,24 @@ export default function TodoList({ todos, selectTodo, deleteTodo }: Props) {
   return (
     <section>
       {todos.map((todo) => (
-        <div className="card mt-3" key={todo.id}>
-          <div className="card-body">
-            <h5 className="card-title">{todo.title}</h5>
-            <p className="card-text">{todo.description}</p>
-            <p className="card-text">
-              <small className="text-muted">
+        <div className='card mt-3' key={todo.id}>
+          <div className='card-body'>
+            <h5 className='card-title'>{todo.title}</h5>
+            <p className='card-text'>{todo.description}</p>
+            <p className='card-text'>
+              <small className='text-muted'>
                 Von {todo.startDate} bis {todo.endDate}
               </small>
             </p>
-            <div className="d-flex justify-content-end">
+            <div className='d-flex justify-content-end'>
               <button
-                className="btn btn-danger"
+                className='btn btn-danger'
                 onClick={() => deleteTodo(todo.id)}
               >
                 Delete
               </button>
               <button
-                className="btn btn-primary"
+                className='btn btn-primary'
                 onClick={() => selectTodo(todo.id)}
               >
                 Details
@@ -38,10 +38,10 @@ export default function TodoList({ todos, selectTodo, deleteTodo }: Props) {
             </div>
           </div>
           <img
-            className="card-img-bottom"
+            className='card-img-bottom'
             src={sports}
-            style={{ color: "blue", height: "200px", width: "auto" }}
-            alt="sports category"
+            style={{ color: 'blue', height: '200px', width: 'auto' }}
+            alt='sports category'
           />
         </div>
       ))}

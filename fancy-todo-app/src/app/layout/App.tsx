@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import axios from "axios";
-import NavBar from "./Navbar";
-import TodoDashboard from "../../features/todos/dashboard/TodoDashboard";
-import { ITodo } from "../../app/models/ITodo";
-import { v4 as uuid } from "uuid";
-import agent from "../api/agent";
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
+import NavBar from './Navbar';
+import TodoDashboard from '../../features/todos/dashboard/TodoDashboard';
+import { ITodo } from '../../app/models/ITodo';
+import { v4 as uuid } from 'uuid';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -13,12 +14,14 @@ function App() {
     undefined
   );
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     agent.Todos.list().then((response) => {
       setTodos(response);
+      setLoading(false);
     });
-  }, []);
+  }, [todos]);
 
   function handleSelectedTodo(id: string) {
     setSelectedTodo(todos.find((t) => t.id === id));
@@ -38,29 +41,44 @@ function App() {
   }
 
   function handleCreateTodo(todo: ITodo) {
+    setLoading(true);
     if (todo.id) {
-      setTodos((prevTodos) => {
-        prevTodos = [...todos.filter((t) => t.id !== todo.id)];
-        prevTodos.unshift(todo);
-        return prevTodos;
+      agent.Todos.update(todo).then(() => {
+        setTodos((prevTodos) => {
+          prevTodos = [...todos.filter((t) => t.id !== todo.id)];
+          prevTodos.unshift(todo);
+          return prevTodos;
+        });
+        setEditMode(false);
+        setSelectedTodo(todo);
+        setLoading(false);
       });
     } else {
-      setTodos([...todos, { ...todo, id: uuid() }]);
+      todo.id = uuid();
+      agent.Todos.create(todo).then(() => {
+        setTodos([...todos, todo]);
+        setEditMode(false);
+        setSelectedTodo(todo);
+        setLoading(false);
+      });
     }
-    setEditMode(false);
-    setSelectedTodo(todo);
   }
 
   function handleDeleteTodo(id: string) {
-    setTodos([...todos.filter((t) => t.id !== id)]);
-    setSelectedTodo(undefined);
-    setEditMode(false);
+    setLoading(true);
+    agent.Todos.delete(id).then(() => {
+      setTodos([...todos.filter((t) => t.id !== id)]);
+      setSelectedTodo(undefined);
+      setEditMode(false);
+      setLoading(false);
+    });
   }
 
   return (
     <div>
+      {loading && <LoadingComponent />}
       <NavBar openForm={handleFormOpen} />
-      <div className="container">
+      <div className='container'>
         <TodoDashboard
           todos={todos}
           selectedTodo={selectedTodo}

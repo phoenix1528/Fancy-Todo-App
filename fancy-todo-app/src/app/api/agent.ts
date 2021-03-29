@@ -1,7 +1,23 @@
-import axios, { AxiosResponse } from "axios";
-import { ITodo } from "../models/ITodo";
+import axios, { AxiosResponse } from 'axios';
+import { ITodo } from '../models/ITodo';
 
-axios.defaults.baseURL = "https://localhost:44326/api";
+const sleep = (delay: number) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    })
+}
+
+axios.defaults.baseURL = 'https://localhost:44326/api';
+
+axios.interceptors.response.use(async response => {
+    try {
+        await sleep(1000);
+        return response;
+    } catch (error) {
+        console.log(error);
+        return await Promise.reject(error);
+    }
+})
 
 const responseBody = <T> (response: AxiosResponse<T>) => response.data;
 
@@ -13,11 +29,11 @@ const requests = {
 }
 
 const Todos = {
-    list: () => requests.get<ITodo[]>("/todo/list"),
+    list: () => requests.get<ITodo[]>('/todo/list'),
     details: (id: string) => requests.get<ITodo>(`/todo/${id}`),
-    create: (todo: ITodo) => requests.post<ITodo>("/todo", todo),
-    update: (todo: ITodo) => requests.put<ITodo>("/todo", todo),
-    delete: (id: string) => requests.delete<ITodo>(`/todo/${id}`)
+    create: (todo: ITodo) => requests.post<void>('/todo', todo),
+    update: (todo: ITodo) => requests.put<void>(`/todo`, todo),
+    delete: (id: string) => requests.delete<void>(`/todo/${id}`)
 }
 
 const agent = {

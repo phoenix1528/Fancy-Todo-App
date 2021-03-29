@@ -1,8 +1,8 @@
-import React from "react";
-import { ITodo } from "../../../app/models/ITodo";
-import TodoDetails from "../details/TodoDetails";
-import TodoForm from "../form/TodoForm";
-import TodoList from "./TodoList";
+import React from 'react';
+import { ITodo } from '../../../app/models/ITodo';
+import TodoDetails from '../details/TodoDetails';
+import TodoForm from '../form/TodoForm';
+import TodoList from './TodoList';
 
 interface Props {
   todos: ITodo[];
@@ -28,15 +28,15 @@ export default function TodoDashboard({
   deleteTodo,
 }: Props) {
   return (
-    <main className="d-flex justify-content-center">
-      <div className="mt-5 mb-5">
+    <main className='d-flex justify-content-center'>
+      <div className='mt-5 mb-5'>
         <TodoList
           todos={todos}
           selectTodo={selectTodo}
           deleteTodo={deleteTodo}
         />
       </div>
-      <div className="pl-3 mt-5">
+      <div className='pl-3 mt-5'>
         {selectedTodo && !editMode && (
           <TodoDetails
             todo={selectedTodo}
