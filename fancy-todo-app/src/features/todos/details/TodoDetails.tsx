@@ -1,7 +1,5 @@
-import React from 'react';
 import sports from '../../../../src/sports.jpg';
 import { ITodo } from '../../../app/models/ITodo';
-import { format } from 'date-fns';
 
 interface Props {
   todo: ITodo;
@@ -25,12 +23,8 @@ export default function TodoDetails({
         <li className='list-group-item'>{todo.category}</li>
         <li className='list-group-item'>{todo.city}</li>
         <li className='list-group-item'>{todo.venue}</li>
-        <li className='list-group-item'>
-          Von {format(new Date(todo.startDate), 'dd MMM yyyy HH:mm')}
-        </li>
-        <li className='list-group-item'>
-          bis {format(new Date(todo.endDate), 'dd MMM yyyy HH:mm')}
-        </li>
+        <li className='list-group-item'>Von {todo.startDate}</li>
+        <li className='list-group-item'>bis {todo.endDate}</li>
       </ul>
       <div className='card-body d-flex justify-content-between'>
         <button onClick={cancelSelectTodo} className='btn btn-danger'>

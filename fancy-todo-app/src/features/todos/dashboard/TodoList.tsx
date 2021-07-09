@@ -1,7 +1,9 @@
-import React from 'react';
 import { ITodo } from '../../../app/models/ITodo';
 import sports from '../../../../src/sports.jpg';
-import { format } from 'date-fns';
+import {
+  dateFormatterDe,
+  dateFormatterEn,
+} from '../../../app/constants/DateFormatters';
 
 interface Props {
   todos: ITodo[];
@@ -19,7 +21,8 @@ export default function TodoList({ todos, selectTodo, deleteTodo }: Props) {
             <p className='card-text'>{todo.description}</p>
             <p className='card-text'>
               <small className='text-muted'>
-                Von {todo.startDate} bis {todo.endDate}
+                Von {dateFormatterDe.format(new Date(todo.startDate))} bis{' '}
+                {dateFormatterEn.format(new Date(todo.endDate))}
               </small>
             </p>
             <div className='d-flex justify-content-end'>

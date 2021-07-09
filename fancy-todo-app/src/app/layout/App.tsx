@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import axios from 'axios';
 import NavBar from './Navbar';
 import TodoDashboard from '../../features/todos/dashboard/TodoDashboard';
 import { ITodo } from '../../app/models/ITodo';
@@ -10,9 +9,8 @@ import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
-  const [selectedTodo, setSelectedTodo] = useState<ITodo | undefined>(
-    undefined
-  );
+  const [selectedTodo, setSelectedTodo] =
+    useState<ITodo | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
 

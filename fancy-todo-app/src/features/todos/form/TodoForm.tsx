@@ -1,6 +1,5 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { ITodo } from '../../../app/models/ITodo';
-import { format } from 'date-fns';
 
 interface IProps {
   todo: ITodo | undefined;
