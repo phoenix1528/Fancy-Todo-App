@@ -9,8 +9,9 @@ import LoadingComponent from './LoadingComponent';
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
-  const [selectedTodo, setSelectedTodo] =
-    useState<ITodo | undefined>(undefined);
+  const [selectedTodo, setSelectedTodo] = useState<ITodo | undefined>(
+    undefined
+  );
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -19,9 +20,10 @@ function App() {
       setTodos(response);
       setLoading(false);
     });
-  }, [todos]);
+  }, []);
 
   function handleSelectedTodo(id: string) {
+    window.scrollTo(0, 0);
     setSelectedTodo(todos.find((t) => t.id === id));
   }
 

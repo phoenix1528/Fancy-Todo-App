@@ -3,8 +3,8 @@ export interface ITodo {
   category: string;
   city: string;
   description: string;
-  endDate: string;
-  startDate: string;
+  endDate: Date;
+  startDate: Date;
   title: string;
   venue: string;
 }

@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { dateFormatterDe } from '../../../app/constants/DateFormatters';
 import { ITodo } from '../../../app/models/ITodo';
 
 interface IProps {
@@ -12,8 +13,8 @@ function TodoForm({ todo: selectedTodo, closeForm, createTodo }: IProps) {
     id: '',
     title: '',
     description: '',
-    endDate: '',
-    startDate: '',
+    endDate: new Date(),
+    startDate: new Date(),
     category: '',
     city: '',
     venue: '',
@@ -85,7 +86,7 @@ function TodoForm({ todo: selectedTodo, closeForm, createTodo }: IProps) {
             type='date'
             className='form-control'
             id='startDate'
-            value={todo.startDate}
+            value={dateFormatterDe.format(todo.startDate)}
             name='startDate'
             onChange={handleIputChange}
           />
@@ -96,7 +97,7 @@ function TodoForm({ todo: selectedTodo, closeForm, createTodo }: IProps) {
             type='date'
             className='form-control'
             id='endDate'
-            value={todo.endDate}
+            value={dateFormatterDe.format(todo.endDate)}
             name='endDate'
             onChange={handleIputChange}
           />

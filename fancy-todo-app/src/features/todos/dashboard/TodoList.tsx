@@ -21,8 +21,8 @@ export default function TodoList({ todos, selectTodo, deleteTodo }: Props) {
             <p className='card-text'>{todo.description}</p>
             <p className='card-text'>
               <small className='text-muted'>
-                Von {dateFormatterDe.format(new Date(todo.startDate))} bis{' '}
-                {dateFormatterEn.format(new Date(todo.endDate))}
+                Von {dateFormatterDe.format(todo.startDate)} bis{' '}
+                {dateFormatterEn.format(todo.endDate)}
               </small>
             </p>
             <div className='d-flex justify-content-end'>

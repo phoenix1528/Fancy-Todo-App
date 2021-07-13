@@ -1,4 +1,8 @@
 import sports from '../../../../src/sports.jpg';
+import {
+  dateFormatterDe,
+  dateFormatterEn,
+} from '../../../app/constants/DateFormatters';
 import { ITodo } from '../../../app/models/ITodo';
 
 interface Props {
@@ -23,8 +27,12 @@ export default function TodoDetails({
         <li className='list-group-item'>{todo.category}</li>
         <li className='list-group-item'>{todo.city}</li>
         <li className='list-group-item'>{todo.venue}</li>
-        <li className='list-group-item'>Von {todo.startDate}</li>
-        <li className='list-group-item'>bis {todo.endDate}</li>
+        <li className='list-group-item'>
+          Von {dateFormatterDe.format(todo.startDate)}
+        </li>
+        <li className='list-group-item'>
+          bis {dateFormatterEn.format(todo.endDate)}
+        </li>
       </ul>
       <div className='card-body d-flex justify-content-between'>
         <button onClick={cancelSelectTodo} className='btn btn-danger'>
